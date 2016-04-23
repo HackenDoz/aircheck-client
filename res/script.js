@@ -25,7 +25,7 @@ function populateTable() {
             $('[data-toggle="tooltip"]').tooltip();
         }
     };
-    xhttp.open("GET", "//api.aircheck-ng.tk/symptoms", true);
+    xhttp.open("GET", "//aircheck-ng.tk/api/symptoms", true);
     xhttp.send();
 }
 
@@ -45,7 +45,7 @@ function submitToServer() {
             alert(xhttp.responseText);
         }
     }
-    xhttp.open("POST", "//api.aircheck-ng.tk/submit", true);
+    xhttp.open("POST", "//aircheck-ng.tk/api/submit", true);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.send(toSend);
 }

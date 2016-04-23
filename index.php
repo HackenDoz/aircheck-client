@@ -7,15 +7,15 @@
         <?php $MAPactive = true; require("res/header.php") ?>
         <div class="container-fluid fullheight">
             <div class="row fullheight">
-                <div class="col-md-2 navbar-default">
-                    <h4></h4>
+                <div class="col-sm-3 col-md-2 navbar-default">
                     <ul class="nav nav-sidebar">
+                        <li><h4 class="visible-xs">Click one to display a map</h4></li>
                         <li><a href="#">Shortness of breath</a></li>
                         <li><a href="#">Anal-lysis</a></li>
                         <li><a href="#">Fucking Jim randomly</a></li>
                     </ul>
                 </div>
-                <div id="map" class="col-md-10 fullheight hidden-sm">
+                <div id="map" class="col-sm-9 col-md-10 fullheight hidden-xs">
                 </div>
             </div>
         </div>
