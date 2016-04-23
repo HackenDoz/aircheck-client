@@ -3,6 +3,16 @@
     src: url("../fonts/Roboto.ttf");
 }
 
+@media screen and (max-width: 430px) {
+    .nomobile {
+         display: none !important;
+    }
+}
+
+.nomobile {
+    display: block;
+}
+
 .bold {
     font-weight: bold;
 }
@@ -15,8 +25,6 @@ html, *
    font-size: 14px;
    
 }
-
-
 
 .navbar-brand {
     bottom: 20px;

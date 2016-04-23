@@ -18,11 +18,11 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav hidden-xs">
-                <li><a href="index.php">Aircheck-NG</a></li>
+                <li><a href="index.php" style="font-size: 20px;">Aircheck-NG</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li class="<?php if ($MAPactive) {echo "active";} ?>"><a href="index.php">Map</a></li>
-                <li class="<?php if ($SUBactive) {echo "active";} ?>"><a href="submission.php">Submissions</a></li>
+                <li class="<?php if ($MAPactive) {echo "active";} ?>"><a href="index.php" style="font-size: 18px;">Map</a></li>
+                <li class="<?php if ($SUBactive) {echo "active";} ?>"><a href="submission.php" style="font-size: 18px;">Submissions</a></li>
             </ul>
         </div>
     </div>

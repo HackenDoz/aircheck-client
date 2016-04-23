@@ -10,10 +10,6 @@
             <div class="row fullheight">
                 <div class="col-sm-3 navbar-default">
                     <ul class="nav nav-sidebar" id="mapsymptoms">
-                        <li><h4 class="visible-xs">Click one to display a map</h4></li>
-                        <li><a href="javascript:void(0)" onclick="click();">Shortness of breath</a></li>
-                        <li><a href="javascript:void(0)" onclick="click();">Anal-lysis</a></li>
-                        <li><a href="javascript:void(0)" onclick="click();">Fucking Jim randomly</a></li>
                     </ul>
                 </div>
                 <div id="map" class="col-sm-9 fullheight hidden-xs">
@@ -23,16 +19,13 @@
         
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDojGhUyOXCLHs9ek0iMJohJK8MF8AFvfQ"></script>
         <script>
-        function click(){
-            console.log(this);
-        } 
             var overlay;
       USGSOverlay.prototype = new google.maps.OverlayView();
 
       // Initialize the map and the custom overlay.
 
       function initMap() {
-        var map = new google.maps.Map(document.getElementById("map"), {
+        map = new google.maps.Map(document.getElementById("map"), {
           zoom: 16,
           center: {lat: 43.648, lng: -79.370},
           mapTypeId: google.maps.MapTypeId.MAP
@@ -42,50 +35,40 @@
             new google.maps.LatLng(43.648, -79.370),
             new google.maps.LatLng(43.7, -79.3));
 
-        // The photograph is courtesy of the U.S. Geological Survey.
-        var srcImage = 'https://developers.google.com/maps/documentation/' +
-            'javascript/examples/full/images/talkeetna.png';
-
-        // The custom USGSOverlay object contains the USGS image,
-        // the bounds of the image, and a reference to the map.
-        overlay = new USGSOverlay(bounds, srcImage, map);
+        overlay = new USGSOverlay(bounds, "test.png", map);
       }
+      
+      function changeOverlay() {
+        //overlay.image_ = Math.round(Math.random()) == 1 ? "test.png" : "screenshot.png";
+        overlay.setMap(map);
+      }
+      
+      //setInterval(changeOverlay, 1)
 
-      /** @constructor */
       function USGSOverlay(bounds, image, map) {
-
-        // Initialize all properties.
         this.bounds_ = bounds;
         this.image_ = image;
         this.map_ = map;
 
-        // Define a property to hold the image's div. We'll
-        // actually create this div upon receipt of the onAdd()
-        // method so we'll leave it null for now.
         this.div_ = null;
 
-        // Explicitly call setMap on this overlay.
         this.setMap(map);
       }
 
-      /**
-       * onAdd is called when the map's panes are ready and the overlay has been
-       * added to the map.
-       */
       USGSOverlay.prototype.onAdd = function() {
 
-        var div = document.createElement('div');
+        var div = document.createElement('canvas', 'canvas');
         div.style.borderStyle = 'none';
         div.style.borderWidth = '0px';
         div.style.position = 'absolute';
 
         // Create the img element and attach it to the div.
-        var img = document.createElement('img');
+        /*var img = document.createElement('img');
         img.src = this.image_;
         img.style.width = '100%';
         img.style.height = '100%';
         img.style.position = 'absolute';
-        div.appendChild(img);
+        div.appendChild(img);*/
 
         this.div_ = div;
 
@@ -109,10 +92,10 @@
 
         // Resize the image's div to fit the indicated dimensions.
         var div = this.div_;
-        div.style.left = sw.x + 'px';
-        div.style.top = ne.y + 'px';
-        div.style.width = (ne.x - sw.x) + 'px';
-        div.style.height = (sw.y - ne.y) + 'px';
+        div.style.left = 0 + 'px';
+        div.style.top = 0 + 'px';
+        div.style.width = (100) + 'vw';
+        div.style.height = (100) + 'vh';
       };
 
       // The onRemove() method will be called automatically from the API if
@@ -125,5 +108,6 @@
       google.maps.event.addDomListener(window, 'load', initMap);
         </script>
 
+<script src="res/gravsim.js"></script>
     </body>
 </html>

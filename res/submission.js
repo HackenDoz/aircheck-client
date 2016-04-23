@@ -8,7 +8,7 @@ function populateTable() {
     xhttp.onreadystatechange = function() {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
             var data = JSON.parse(xhttp.responseText);
-            var tableData = "";
+            var tableData = "<tr><td colspan=\"2\"><h5>Symptom</h5></td><td><div class='nomobile' style='float:left; width: 33%'><h6>Lower</h6></div><div style='float:left; width: 33%'><center><h5>Severity</h5></center></div><div class='nomobile' style='float:left; width: 33%; text-align: right;'><h6>Higher</h6></td></tr>";
             for (var i = 1; i < data["symptoms"].length + 1; i++) {
                 var cur = data["symptoms"][i - 1];
                 var id = i;
@@ -30,27 +30,26 @@ function populateTable() {
 }
 
 function submitToServer() {
-    var usrInfo = {};
-    $.getJSON('//ipinfo.io', function(data) {
-        usrInfo = data["loc"].split(",");
-        
+    navigator.geolocation.getCurrentPosition(function(pos) {
+        var crd = pos.coords;
         var elems = document.getElementsByClassName("tableRow3251");
         var symps = {};
         for (var i = 1; i < elems.length + 1; i++) {
             symps[i + ""] = parseInt(document.getElementById(i).value);
         }
         var toSend = {
-            "latitude": usrInfo[0],
-            "longitude": usrInfo[1],
+            "latitude": crd.latitude,
+            "longitude": crd.longitude,
             "symptoms": symps
         };
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if (xhttp.readyState == 4 && xhttp.status == 200) {
                 alert("Success");
+                window.location.reload();
             }
         }
         xhttp.open("POST", "//api.aircheck-ng.tk/submit", true);
         xhttp.send(JSON.stringify(toSend));
-    })
+    });
 }

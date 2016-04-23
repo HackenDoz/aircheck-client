@@ -6,15 +6,20 @@
     </head>
     <body>
         <?php $SUBactive = true; $MAPactive = false; require 'res/header.php' ?>
+        
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
                     <br/>
-                    <h2 class="pgTitle">User Data Submission</h2>
-                    <br/>
-                    <p>
-                    </p>
+                    <h3 class="pgTitle">User Data Submission</h3>
+                    <p align="center">As a part of our global crowd-sourcing of information,
+                    to better serve you in the future, we kindly ask that you fill out a short survey to
+                    help us grade, analyze and construct our geographic mapping of health symptoms.</p>
+                    <p align="center">Your data will be used anonymously to be compared against global weather conditions
+                    in order to help other users discover new world health patterns.</p>
                 </div>
+                <div class="col-md-2"></div>
             </div>
             <div class="row">
                 <div class="col-md-1"></div>
