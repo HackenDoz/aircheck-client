@@ -24,6 +24,6 @@ function populateTable() {
             document.getElementById("submitTable").innerHTML = tableData;
         }
     };
-    xhttp.open("POST", "//aircheck-hacken.tk:8080/symptoms/", true);
+    xhttp.open("POST", "//api.aircheck-hacken.tk/symptoms/", true);
     xhttp.send();
 }
