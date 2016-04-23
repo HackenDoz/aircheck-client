@@ -9,4 +9,3 @@
 <link rel="stylesheet" href="res/main.css">
 <link rel="icon" href="res/favicon.png"/>
 <script src="src/bootstrap.min.js"></script>
-<script src="res/script.js"></script>

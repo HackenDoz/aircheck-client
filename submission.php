@@ -2,6 +2,7 @@
 <html>
     <head>
         <?php $title = "Data Submission | Aircheck-NG"; require 'res/head.php' ?>
+        <script src="res/submission.js"></script>
     </head>
     <body>
         <?php $SUBactive = true; $MAPactive = false; require 'res/header.php' ?>

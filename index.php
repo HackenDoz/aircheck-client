@@ -2,6 +2,7 @@
 <html class="fullheight">
     <head>
         <?php $title = "Aircheck-NG - Home"; require("res/head.php"); ?>
+        <script src="res/main.js"></script>
     </head>
     <body class="fullheight">
         <?php $SUBactive=false; $MAPactive = true; require("res/header.php") ?>
