@@ -16,20 +16,9 @@
                 </div>
             </div>
             <div class="row">
-                <?php
-                ?>
                 <div class="col-md-1"></div>
-                <div class="col-md-10">
-                <table class="table" id="submitTable">
-                </table>
-                <button class="btn" style="width: 100%">
-                    SUBMIT
-                </button>
-                </div>
+                <div class="col-md-10"><table class="table" id="submitTable"></table></div>
                 <div class="col-md-1"></div>
-            </div>
-            <div class="row">
-                <div class="col-md-12"></div>
             </div>
         </div>
     </body>

@@ -12,18 +12,28 @@
 html, *
 {
    font-family: "Roboto";
+   font-size: 14px;
+}
+
+.navbar-brand {
+    bottom: 6px;
+    position: relative; 
 }
 
 body {
-    padding-top: 80px;
+    padding-top: 64px;
 }
 
 p {
   font-size: 14px;
 }
 
+.fullheight {
+    height: 100%;
+}
+
 #map {
-    height: 100vh;
+    height: 100%;
 }
 
 .nav-sidebar {

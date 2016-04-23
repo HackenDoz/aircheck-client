@@ -1,20 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html class="fullheight">
     <head>
         <?php $title = "Aircheck-NG - Home"; require("res/head.php"); ?>
     </head>
-    <body>
+    <body class="fullheight">
         <?php $MAPactive = true; require("res/header.php") ?>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-2 navbar-default">
+        <div class="container-fluid fullheight">
+            <div class="row fullheight">
+                <div class="col-md-2 navbar-default">
+                    <h4></h4>
                     <ul class="nav nav-sidebar">
                         <li><a href="#">Shortness of breath</a></li>
                         <li><a href="#">Anal-lysis</a></li>
                         <li><a href="#">Fucking Jim randomly</a></li>
                     </ul>
                 </div>
-                <div id="map" class="col-sm-10">
+                <div id="map" class="col-md-10 fullheight hidden-sm">
                 </div>
             </div>
         </div>
