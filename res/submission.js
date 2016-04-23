@@ -35,13 +35,14 @@ function submitToServer() {
         var elems = document.getElementsByClassName("tableRow3251");
         var symps = {};
         for (var i = 1; i < elems.length + 1; i++) {
-            symps[i + ""] = parseInt(document.getElementById(i).value);
+            symps[i.toString(10) + ""] = parseInt(document.getElementById(i).value);
         }
         var toSend = {
             "latitude": crd.latitude,
             "longitude": crd.longitude,
             "symptoms": symps
         };
+        alert(JSON.stringify(toSend));
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if (xhttp.readyState == 4 && xhttp.status == 200) {

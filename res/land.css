@@ -1,0 +1,35 @@
+#bg {
+  position: fixed; 
+  top: -50%; 
+  left: -50%; 
+  width: 200%; 
+  height: 200%;
+  filter: brightness(35%);
+-webkit-filter: brightness(35%);
+-moz-filter: brightness(35%);
+-o-filter: brightness(35%);
+-ms-filter: brightness(35%);
+}
+#bg img {
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  right: 0; 
+  bottom: 0; 
+  margin: auto; 
+  min-width: 50%;
+  min-height: 50%;
+
+}
+
+.fix {
+   position: absolute;
+   text-align: center;
+   color: white !important;
+   font-size: 60px;
+   text-shadow: 2px 2px #000000 !important;
+}
+
+h1 {
+  color: white;
+}

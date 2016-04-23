@@ -76,6 +76,18 @@ td {
     font-size: 1.4em !important;
 }
 
+#mapsymptoms .active > a{
+    color: #555;
+    background-color: #e7e7e7;
+}
+#mapsymptoms > a:link,
+#mapsymptoms > a:hover,
+#mapsymptoms > a:focus,
+#mapsymptoms > a:active {
+  color: #ccc;
+  background-color: transparent;
+}
+
 input[type=range] {
     /*removes default webkit styles*/
     -webkit-appearance: none;

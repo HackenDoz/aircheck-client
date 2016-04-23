@@ -5,7 +5,7 @@
         <script src="res/submission.js"></script>
     </head>
     <body>
-        <?php $SUBactive = true; $MAPactive = false; require 'res/header.php' ?>
+        <?php $LANactive = false; $SUBactive = true; $MAPactive = false; require 'res/header.php' ?>
         
         <div class="container">
             <div class="row">
