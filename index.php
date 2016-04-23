@@ -7,21 +7,24 @@
         <?php $MAPactive = true; require("res/header.php") ?>
         <div class="container-fluid fullheight">
             <div class="row fullheight">
-                <div class="col-sm-3 col-md-2 navbar-default">
+                <div class="col-sm-3 navbar-default">
                     <ul class="nav nav-sidebar">
                         <li><h4 class="visible-xs">Click one to display a map</h4></li>
-                        <li><a href="#">Shortness of breath</a></li>
-                        <li><a href="#">Anal-lysis</a></li>
-                        <li><a href="#">Fucking Jim randomly</a></li>
+                        <li><a href="javascript:void(0)" onclick="click();">Shortness of breath</a></li>
+                        <li><a href="javascript:void(0)" onclick="click();">Anal-lysis</a></li>
+                        <li><a href="javascript:void(0)" onclick="click();">Fucking Jim randomly</a></li>
                     </ul>
                 </div>
-                <div id="map" class="col-sm-9 col-md-10 fullheight hidden-xs">
+                <div id="map" class="col-sm-9 fullheight hidden-xs">
                 </div>
             </div>
         </div>
         
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDojGhUyOXCLHs9ek0iMJohJK8MF8AFvfQ"></script>
         <script>
+        function click(){
+            console.log(this);
+        } 
             var overlay;
       USGSOverlay.prototype = new google.maps.OverlayView();
 

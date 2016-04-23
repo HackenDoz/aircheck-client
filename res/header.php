@@ -7,10 +7,11 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
+            <img alt="AirCheck" src="res/logo.png" height="80px" width="144px">
             <div>
                 <div>
                     <a class="navbar-brand" href="index.php">
-                        <img id="nav-img" alt="Brand" src="res/logo.svg" height="40px" width="40px">
+                        <img id="nav-img" alt="Brand" src="res/logo.svg" height="40" width="40">
                     </a>
                 </div>
             </div>
