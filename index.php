@@ -1,11 +1,24 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <?php require("res/head.php") ?>
-        <!-- Always use double quotes -->
+        <?php $title = "Aircheck-NG - Home"; require("res/head.php"); ?>
     </head>
     <body>
-        <?php require("res/header.php") ?>
-        <a href="www.pornhub.com/">This link is for Jim.</a>
-        <iframe src="http://www.accuweather.com/en/ca/toronto/m5g/weather-forecast/55488"></iframe>
+        <?php $MAPactive = true; require("res/header.php") ?>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-2 navbar-default">
+                    <ul class="nav nav-sidebar">
+                        <li><a href="#">Shortness of breath</a></li>
+                        <li><a href="#">Anal-lysis</a></li>
+                        <li><a href="#">Fucking Jim randomly</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-10 main">
+                    <img src="https://d32ogoqmya1dw8.cloudfront.net/images/sp/library/google_earth/google_maps_hello_world.jpg" style="width: 100%; height: 100%;">
+                </div>
+            </div>
+        </div>
+
+    </body>
 </html>

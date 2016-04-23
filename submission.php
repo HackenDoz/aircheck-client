@@ -1,9 +1,36 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <?php $title = "Crowd Sourced Submission | Aricheck-NG"; require 'res/head.php' ?>
+        <?php $title = "Data Submission | Aircheck-NG"; require 'res/head.php' ?>
     </head>
     <body>
-        <?php require 'res/header.php' ?>
+        <?php $SUBactive = true; require 'res/header.php' ?>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <br/>
+                    <h2 class="pgTitle">User Data Submission</h2>
+                    <br/>
+                    <p>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <?php
+                ?>
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                <table class="table" id="submitTable">
+                </table>
+                <button class="btn" style="width: 100%">
+                    SUBMIT
+                </button>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-12"></div>
+            </div>
+        </div>
     </body>
 </html>
