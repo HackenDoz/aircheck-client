@@ -4,7 +4,7 @@
         <?php $title = "Data Submission | Aircheck-NG"; require 'res/head.php' ?>
     </head>
     <body>
-        <?php $SUBactive = true; require 'res/header.php' ?>
+        <?php $SUBactive = true; $MAPactive = false; require 'res/header.php' ?>
         <div class="container">
             <div class="row">
                 <div class="col-md-12">

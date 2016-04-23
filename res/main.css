@@ -16,8 +16,10 @@ html, *
    
 }
 
+
+
 .navbar-brand {
-    bottom: 6px;
+    bottom: 20px;
     position: relative; 
 }
 

@@ -4,11 +4,11 @@
         <?php $title = "Aircheck-NG - Home"; require("res/head.php"); ?>
     </head>
     <body class="fullheight">
-        <?php $MAPactive = true; require("res/header.php") ?>
+        <?php $SUBactive=false; $MAPactive = true; require("res/header.php") ?>
         <div class="container-fluid fullheight">
             <div class="row fullheight">
                 <div class="col-sm-3 navbar-default">
-                    <ul class="nav nav-sidebar">
+                    <ul class="nav nav-sidebar" id="mapsymptoms">
                         <li><h4 class="visible-xs">Click one to display a map</h4></li>
                         <li><a href="javascript:void(0)" onclick="click();">Shortness of breath</a></li>
                         <li><a href="javascript:void(0)" onclick="click();">Anal-lysis</a></li>
