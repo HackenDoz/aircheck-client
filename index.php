@@ -14,8 +14,7 @@
                         <li><a href="#">Fucking Jim randomly</a></li>
                     </ul>
                 </div>
-                <div id="map" class="col-sm-10 main">
-                    
+                <div id="map" class="col-sm-10">
                 </div>
             </div>
         </div>
@@ -28,7 +27,7 @@
       // Initialize the map and the custom overlay.
 
       function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
+        var map = new google.maps.Map(document.getElementById("map"), {
           zoom: 16,
           center: {lat: 43.648, lng: -79.370},
           mapTypeId: google.maps.MapTypeId.MAP

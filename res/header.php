@@ -12,7 +12,7 @@
                     <ul class="nav navbar-nav">
                         <li>
                             <a class="navbar-brand" href="index.php">
-                                <img id="nav-img" alt="Brand" src="res/logo.svg" height="40" width="40">
+                                <img id="nav-img" alt="Brand" src="res/logo.svg" height="60px" width="60px">
                             </a>
                         </li>
                     </ul>
@@ -22,7 +22,7 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav hidden-xs">
-                <li><a href="index.php">Aircrack-NG</a></li>
+                <li><a href="index.php">Aircheck-NG</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="<?php if ($MAPactive) {echo "active";} ?>"><a href="index.php">Map</a></li>
