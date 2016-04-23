@@ -9,13 +9,9 @@
             </button>
             <div>
                 <div id="nav-header" class="navbar-header">
-                    <ul class="nav navbar-nav">
-                        <li>
-                            <a class="navbar-brand" href="index.php">
-                                <img id="nav-img" alt="Brand" src="res/logo.svg" height="60px" width="60px">
-                            </a>
-                        </li>
-                    </ul>
+                    <a class="navbar-brand" href="index.php">
+                        <img id="nav-img" alt="Brand" src="res/logo.svg" height="40px" width="40px">
+                    </a>
                 </div>
             </div>
                     

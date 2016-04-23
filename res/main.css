@@ -3,9 +3,6 @@
     src: url("../fonts/Roboto.ttf");
 }
 
-.ital {
-    font-style: italic;
-}
 .bold {
     font-weight: bold;
 }
@@ -26,12 +23,14 @@ p {
 }
 
 #map {
-    height: 100%;
+    height: 100vh;
 }
 
 .nav-sidebar {
     display: block;
     padding: 0px;
+    padding-top: 10px;
+    padding-bottom: 15px;
 }
 .pgTitle, .cent {
     text-align: center;
