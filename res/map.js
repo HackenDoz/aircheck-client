@@ -70,6 +70,7 @@ function redraw() {
     var data = imageData.data;
     
     var count = new Float64Array(width * height);
+    var visibleSymptoms = [];
     var visibleWeather = [];
     
     if(symptoms != undefined) {
@@ -77,9 +78,7 @@ function redraw() {
         for(var k in symptoms) {
             var symp = symptoms[k];
             if(bounds.contains(new google.maps.LatLng(symp.latitude, symp.longitude))) {
-                symp.vis = true;
-            } else {
-                symp.vis = false;
+                visibleSymptoms.push(symp);
             }
         }
         for (var k in weatherData) {
@@ -97,11 +96,8 @@ function redraw() {
                 var lat1 = coord.lat();
                 var lng1 = coord.lng();
 
-                for(var k in symptoms) {
-                    var symp = symptoms[k];
-                    if(!symp.vis) {
-                        continue;
-                    }
+                for(var k in visibleSymptoms) {
+                    var symp = visibleSymptoms[k];
                     var lat2 = Number(symp.latitude);
                     var lng2 = Number(symp.longitude);
                     var rad = Number(symp.radius);
@@ -122,12 +118,26 @@ function redraw() {
                     count[y * iwidth + x] += 10000000 * Math.pow(1 / 2, map.zoom) / d;
                 }
                 
-                for (var k in weatherData) {
-                    var weather = weatherData[k];
-                    if (!weather.vis) {
-                        continue;
-                    }
-                    console.log(weather);
+                for (var weather in visibleWeather) {
+                    var lat2 = Number(symp.latitude);
+                    var lng2 = Number(symp.longitude);
+                    var rad = Number(symp.radius);
+                    
+                    var R = 6371000; // metres
+                    var φ1 = lat1 * Math.PI / 180;
+                    var φ2 = lat2 * Math.PI / 180;
+                    var Δφ = (lat2-lat1) * Math.PI / 180;
+                    var Δλ = (lng2-lng1) * Math.PI / 180;
+                    
+                    var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+                            Math.cos(φ1) * Math.cos(φ2) *
+                            Math.sin(Δλ/2) * Math.sin(Δλ/2);
+                    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+                    
+                    var d = R * c;
+                    
+                    count[y * iwidth + x] += 10000000 * Math.pow(1 / 2, map.zoom) / d;
+                    
                 }
             }
         }
