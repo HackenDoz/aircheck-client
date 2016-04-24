@@ -10,7 +10,7 @@ Overlay.prototype.onAdd = function() {
     
     this.getPanes().overlayLayer.appendChild(overlayCanvas);
     
-    scaling = 16;
+    scaling = 30;
     
     context = overlayCanvas.getContext("2d");
     
@@ -73,13 +73,67 @@ function redraw() {
     var count = new Float64Array(width * height);
     
     if(symptoms != undefined) {
+        
         for(var k in symptoms) {
             var symp = symptoms[k];
-            var lat = Number(symp.latitude);
-            var lng = Number(symp.longitude);
-            var rad = Number(symp.radius);
+            if(bounds.contains(new google.maps.LatLng(symp.latitude, symp.longitude))) {
+                symp.vis = true;
+            } else {
+                symp.vis = false;
+            }
+        }
+        for (var k in weatherData) {
+            var weather = weatherData[k];
+            weather.vis = bounds.contains(new google.maps.LatLng(weather.latitude, weather.longitude));
+        }
+        
+        for(var x = 0; x < iwidth; ++x) {
+            for(var y = 0; y < iheight; ++y) {
+                
+                var coord = overlayProjection.fromContainerPixelToLatLng(new google.maps.Point((x + 0.5) * scaling, (y + 0.5) * scaling));
+
+                var lat1 = coord.lat();
+                var lng1 = coord.lng();
+
+                for(var k in symptoms) {
+                    var symp = symptoms[k];
+                    if(!symp.vis) {
+                        continue;
+                    }
+                    var lat2 = Number(symp.latitude);
+                    var lng2 = Number(symp.longitude);
+                    var rad = Number(symp.radius);
+                    
+                    var R = 6371000; // metres
+                    var φ1 = lat1 * Math.PI / 180;
+                    var φ2 = lat2 * Math.PI / 180;
+                    var Δφ = (lat2-lat1) * Math.PI / 180;
+                    var Δλ = (lng2-lng1) * Math.PI / 180;
+                    
+                    var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+                            Math.cos(φ1) * Math.cos(φ2) *
+                            Math.sin(Δλ/2) * Math.sin(Δλ/2);
+                    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+                    
+                    var d = R * c;
+                    
+                    count[y * iwidth + x] += 10000000 * Math.pow(1 / 2, map.zoom) / d;
+                }
+                
+                for (var k in weatherData) {
+                    var weather = weatherData[k];
+                    if (!weather.vis) {
+                        continue;
+                    }
+                    console.log(weather);
+                }
+            }
+        }
+    }
+    
+    
+      /*  for(var k in symptoms) {
             
-            var p = overlayProjection.fromLatLngToContainerPixel(new google.maps.LatLng(lat, lng));
             var xv = Math.floor(p.x / scaling);
             var yv = Math.floor(p.y / scaling);
             
@@ -98,10 +152,10 @@ function redraw() {
                 }
             }
         }
-    }
+    }*/
     
     for(var i = 0; i < data.length; ++i) {
-        data[i * 4] = count[i] * 10;
+        data[i * 4 + 1] = count[i] * 10;
         data[i * 4 + 3] = count[i] * 10;
     }
     

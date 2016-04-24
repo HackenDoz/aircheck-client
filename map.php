@@ -12,11 +12,11 @@
                     <ul class="nav nav-sidebar" id="mapsymptoms">
                     </ul>
                 </div>
-                <div id="map" class="col-sm-9 fullheight hidden-xs heightzero-xs">
+                <div id="map" class="col-sm-9 fullheight hidden-xs">
                 </div>
             </div>
         </div>
-        
+        <div id="3251"></div>
         <script src="https://maps.googleapis.com/maps/api/js"></script>
         <script src="res/map.js"></script>
         <!--<script>

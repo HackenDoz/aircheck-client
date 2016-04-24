@@ -17,7 +17,7 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav hidden-xs">
-                <li><a href="index.php" style="font-size: 20px;">Aircheck-NG</a></li>
+                <li><a href="index.php" style="font-size: 20px;">AirCheck-NG</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="<?php if ($MAPactive) {echo "active";} ?>"><a href="map.php" style="font-size: 18px;">Live Map</a></li>

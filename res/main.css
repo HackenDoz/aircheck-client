@@ -3,17 +3,12 @@
     src: url("../fonts/Roboto.ttf");
 }
 
-@media screen and (max-width: 430px) {
+@media screen and (max-width: 450px) {
     .nomobile {
          display: none !important;
     }
-}
-
-
-@media (max-width: 767px) {
-    .heightzero-xs {
-        height: 0px !importants;
-    }
+    
+    .hidden-xs
 }
 
 .nomobile {

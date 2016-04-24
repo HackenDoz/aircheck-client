@@ -1,5 +1,5 @@
 function removeMap(){
-    document.getElementById("map").className = "col-sm-9 fullheight hidden-xs heightzero-xs";
+    document.getElementById("map").className = "col-sm-9 fullheight hidden-xs";
     document.getElementById("mapsymptoms").className = "nav nav-sidebar";
 }
 
@@ -19,26 +19,37 @@ function openMap(){
 
 $(document).ready(function(){
     populateSymptoms();
+    populateWeather();
     populateMap();
     window.onpopstate = removeMap;
     
     removeMap();
 });
 
-function click(e) {
+function symptomClick(e) {
     var elements = document.getElementById("mapsymptoms").childNodes;
 
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", "//api.aircheck-ng.tk/mapping?symptom=" + e);
+    xhttp.onreadystatechange = function() {
+        if (xhttp.readyState === XMLHttpRequest.DONE && xhttp.status === 200) {
+            fuckSymptoms(JSON.parse(xhttp.responseText)["heatmap"]);
+            console.log("here");
+        }
+    };
+    xhttp.send();
+
     for (var i = 0; i < elements.length; i++) {
-        if(i == e){
+        if (i == e) {
             continue;
         }
         elements[i].className = "";
     }
     
-    if(elements[e].className.indexOf("active") > -1){
+    if (elements[e].className.indexOf("active") > -1) {
         elements[e].className = "";
         elements[e].blur();
-    }else{
+    } else {
         elements[e].className = "active";
     }
 }
@@ -63,7 +74,7 @@ function populateSymptoms() {
                     a.appendChild(document.createTextNode(symptom));
                     li.appendChild(a);
                     li.onclick = function(){
-                        click(i);
+                        symptomClick(i);
                     }
                     w.appendChild(li);
                 })(++i);
@@ -83,37 +94,33 @@ function populateSymptoms() {
 
 function populateMap() {
     var xhttp = new XMLHttpRequest();
-    //xhttp.onreadystatechange = function() {
-    //    if (xhttp.readyState == 4 && xhttp.status == 200) {
-    //        var data = JSON.parse(xhttp.responseText)["heatmap"];
-    //        showMap(data);
-    //    }
-    //};
-    //xhttp.open("GET", "//api.aircheck-ng.tk/mapping", true);
     xhttp.open("GET", "//api.aircheck-ng.tk/mapping", false);
     xhttp.send();
-    showMap(JSON.parse(xhttp.responseText)["heatmap"]);
+    fuckSymptoms(JSON.parse(xhttp.responseText)["heatmap"]);
 }
 
-function showMap(symp) {
+function fuckSymptoms(symp) {
     symptoms = symp;
 }
 
+function fuckWeather(weather) {
+    weatherData = weather;
+}
 
-function getWeather(lat, long) {
+function getWeatherConditions() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
-            // Temperature, Pressure, Humidity, Wind Speed
-            var data = JSON.parse(xhttp.responseText);
-            console.dir(data);
-            var output = {};
-            output["temperature"] = data["main"]["temp"];
-            output["humidity"] = data["main"]["humidity"];
-            output["wind"] = data["wind"]["speed"];
-            console.dir(output);
+            weather = JSON.parse(xhttp.responseText);
         }
     };
-    xhttp.open("GET", "//api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+long+"&appid=58e80df1ecf484fd3c75c6ee1ee12eab", true);
+    xhttp.open("GET", "//api.aircheck-ng.tk/weather", true);
     xhttp.send();
+}
+
+function populateWeather() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", "//api.aircheck-ng.tk/weather/mapping", false);
+    xhttp.send();
+    fuckWeather(JSON.parse(xhttp.responseText));
 }
