@@ -31,10 +31,10 @@ function genCircles() {
             var lng = Number(symp.longitude);
             var rad = Number(symp.radius);
             var circ = new google.maps.Circle({
-                strokeColor: '#FF0000',
+                strokeColor: '#00ff00',
                 strokeOpacity: 0.8,
                 strokeWeight: 2,
-                fillColor: '#FF0000',
+                fillColor: '#00ff00',
                 fillOpacity: 0.35,
                 map: map,
                 center: new google.maps.LatLng(lat, lng),
@@ -152,7 +152,7 @@ function redraw() {
                     
                     var d = R * c;
 
-                    countW[y * iwidth + x] += 500000000 * Math.pow(1 / 2, map.zoom + 2) / d;
+                    countW[y * iwidth + x] += 1000000000 * Math.pow(1 / 2, map.zoom + 2) / d;
                 }
             }
         }
