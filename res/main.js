@@ -1,3 +1,5 @@
+var idToName = ["", "Cough", "Wheezing", "Nasal Obstruction", "Itchy Eye", "Lung Cancer", "Shortness of Breath", "Sneezing"];
+
 function removeMap(){
     document.getElementById("map").className = "col-sm-9 fullheight hidden-xs";
     document.getElementById("mapsymptoms").className = "nav nav-sidebar";
@@ -10,7 +12,7 @@ function openMap(){
         
         history.pushState({}, "", document.location);
         
-        map.refresh();
+        refresh();
         var center = map.getCenter();
         google.maps.event.trigger(map, 'resize');
         map.setCenter(center);
@@ -26,18 +28,33 @@ $(document).ready(function(){
     removeMap();
 });
 
-function symptomClick(e) {
-    var elements = document.getElementById("mapsymptoms").childNodes;
-
-    var xhttp = new XMLHttpRequest();
-    xhttp.open("GET", "//api.aircheck-ng.tk/mapping?symptom=" + e);
-    xhttp.onreadystatechange = function() {
-        if (xhttp.readyState === XMLHttpRequest.DONE && xhttp.status === 200) {
-            fuckSymptoms(JSON.parse(xhttp.responseText)["heatmap"]);
-            console.log("here");
+function createTooltip(symp, weather) {
+    if (symp != undefined && symp.severity != 0) {
+        var box = document.getElementById('4431');
+        box.innerHTML = "<h5>" + idToName[Number(symp.symptom_id)] + "</h5>" + "<p>Severity: " + symp.severity + "</p>";
+    } else if (weather != undefined) {
+        var box = document.getElementById('4431');
+        switch (weather.weather_id) {
+            case 1:
+                box.innerHTML = "<p>Humidity: " + weather.value + "</p>";
+                break;
+            case 2:
+                box.innerHTML = "<p>Temperature: " + weather.value + "</p>";
+                break;
+            case 3:
+                box.innerHTML = "<p>Temperature: " + weather.value + "</p>";
+                break;
         }
-    };
-    xhttp.send();
+    }
+    else {
+        var box = document.getElementById('4431');
+        box.innerHTML = "";
+    }
+}
+
+function symptomClick(e) {
+    openMap();
+    var elements = document.getElementById("mapsymptoms").childNodes;
 
     for (var i = 0; i < elements.length; i++) {
         if (i == e) {
@@ -49,8 +66,21 @@ function symptomClick(e) {
     if (elements[e].className.indexOf("active") > -1) {
         elements[e].className = "";
         elements[e].blur();
+        
+        fuckSymptoms([]);
     } else {
         elements[e].className = "active";
+        
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", "//api.aircheck-ng.tk/mapping?symptom=" + e);
+        xhttp.onreadystatechange = function() {
+            if (xhttp.readyState === XMLHttpRequest.DONE && xhttp.status === 200) {
+                fuckSymptoms(JSON.parse(xhttp.responseText)["heatmap"]);
+                redraw();
+                console.log("here");
+            }
+        };
+        xhttp.send();
     }
 }
 
@@ -60,7 +90,7 @@ function populateSymptoms() {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
             var w = document.getElementById("mapsymptoms");
             var i = 0;
-            w.innerHTML = '<li><h4 class="visible-xs">Click one to display a map</h4></li>';
+            w.innerHTML = '<li><h4>Symptoms</h4></li>';
             var data = JSON.parse(xhttp.responseText)["symptoms"];
             console.dir(data);
             data.forEach(function(element){

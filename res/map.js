@@ -10,7 +10,7 @@ Overlay.prototype.onAdd = function() {
     
     this.getPanes().overlayLayer.appendChild(overlayCanvas);
     
-    scaling = 30;
+    scaling = 32;
     
     context = overlayCanvas.getContext("2d");
     
@@ -20,7 +20,7 @@ Overlay.prototype.onAdd = function() {
 var circles = [];
 
 function genCircles() {
-    if(symptoms != undefined) {
+    if(typeof(symptoms) !== "undefined") {
         for(var c in circles) {
             //c.map = null;
         }
@@ -59,8 +59,12 @@ function redraw() {
     overlayCanvas.style.width = width + 'px';
     overlayCanvas.style.height = height + 'px';
     
-    var iwidth = width / scaling;
-    var iheight = height / scaling;
+    var iwidth = Math.round(width / scaling);
+    var iheight = Math.round(height / scaling);
+    
+    if(iwidth == 0 || iheight == 0) {
+        return;
+    }
     
     overlayCanvas.width = iwidth;
     overlayCanvas.height = iheight;
@@ -69,11 +73,13 @@ function redraw() {
     
     var data = imageData.data;
     
-    var count = new Float64Array(width * height);
-    var visibleSymptoms = [];
-    var visibleWeather = [];
+    var countS = new Float64Array(width * height);
+    var countW = new Float64Array(width * height);
     
-    if(symptoms != undefined) {
+    visibleSymptoms = [];
+    visibleWeather = [];
+    
+    if(typeof(symptoms) !== "undefined" && typeof(weatherData) !== "undefined") {
         
         for(var k in symptoms) {
             var symp = symptoms[k];
@@ -84,7 +90,17 @@ function redraw() {
         for (var k in weatherData) {
             var weather = weatherData[k];
             if (bounds.contains(new google.maps.LatLng(weather.latitude, weather.longitude))) {
-                visibleWeather.push(weather);
+                switch (weather.weather_id) {
+                    case "1": // Humidity
+                        break;
+                    case "2": // Temperature
+                        if (Number(weather.value) < -10 || Number(weather.value) > 40)
+                            visibleWeather.push(weather);
+                        break;
+                    case "3": // Wind Speed
+                        if (Number(weather.value) > 70)
+                            visibleWeather.push(weather);
+                }
             }
         }
         
@@ -115,13 +131,13 @@ function redraw() {
                     
                     var d = R * c;
                     
-                    count[y * iwidth + x] += 10000000 * Math.pow(1 / 2, map.zoom) / d;
+                    countS[y * iwidth + x] += 500000000 * Math.pow(1 / 2, map.zoom + 2) / d;
                 }
                 
-                for (var weather in visibleWeather) {
-                    var lat2 = Number(symp.latitude);
-                    var lng2 = Number(symp.longitude);
-                    var rad = Number(symp.radius);
+                for (var k in visibleWeather) {
+                    var weather = visibleWeather[k];
+                    var lat2 = Number(weather.latitude);
+                    var lng2 = Number(weather.longitude);
                     
                     var R = 6371000; // metres
                     var φ1 = lat1 * Math.PI / 180;
@@ -135,9 +151,8 @@ function redraw() {
                     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
                     
                     var d = R * c;
-                    
-                    count[y * iwidth + x] += 10000000 * Math.pow(1 / 2, map.zoom) / d;
-                    
+
+                    countW[y * iwidth + x] += 500000000 * Math.pow(1 / 2, map.zoom + 2) / d;
                 }
             }
         }
@@ -167,8 +182,10 @@ function redraw() {
     }*/
     
     for(var i = 0; i < data.length; ++i) {
-        data[i * 4 + 1] = count[i] * 10;
-        data[i * 4 + 3] = count[i] * 10;
+        data[i * 4] = countW[i];
+        data[i * 4 + 1] = countS[i];
+        data[i * 4 + 3] = countS[i] + countW[i];
+        //data[i * 4 + 2] = Math.random() * 255;
     }
     
     context.putImageData(imageData, 0, 0, 0, 0, width, height);
@@ -210,6 +227,65 @@ function boundsChange() {
     redraw();
 }
 
+function move(e) {
+    
+    var overlayProjection = overlay.getProjection();
+    
+    if(typeof(visibleSymptoms) !== "undefined" && typeof(visibleWeather) !== "undefined") {
+        var sympDist = Number.POSITIVE_INFINITY;
+        var weatherDist = Number.POSITIVE_INFINITY;
+        
+        var coord = overlayProjection.fromLatLngToContainerPixel(e.latLng);
+
+        for(var k in visibleSymptoms) {
+            var symp = visibleSymptoms[k];
+            var lat2 = Number(symp.latitude);
+            var lng2 = Number(symp.longitude);
+            var rad = Number(symp.radius);
+            
+            var c = overlayProjection.fromLatLngToContainerPixel(new google.maps.LatLng(lat2, lng2));
+            
+            var d = Math.sqrt((c.x - coord.x) * (c.x - coord.x) + (c.y - coord.y) * (c.y - coord.y));
+            
+            if(d < sympDist) {
+                sympDist = d;
+                bestSymp = symp;
+                bestSympX = c.x;
+                bestSympY = c.y;
+            }
+            
+        }
+        
+        for (var k in visibleWeather) {
+            var weather = visibleWeather[k];
+            var lat2 = Number(weather.latitude);
+            var lng2 = Number(weather.longitude);
+            
+            var c = overlayProjection.fromLatLngToContainerPixel(new google.maps.LatLng(lat2, lng2));
+            
+            var d = Math.sqrt((c.x - coord.x) * (c.x - coord.x) + (c.y - coord.y) * (c.y - coord.y));
+            
+            if(d < weatherDist) {
+                weatherDist = d;
+                bestWeather = weather;
+                bestWeatherX = c.x;
+                bestWeatherY = c.y;
+            }
+        }
+        
+        if(sympDist > 20) {
+            bestSymp = undefined;
+        }
+        
+        if(weatherDist > 20) {
+            bestWeather = undefined;
+        }
+        
+        createTooltip(bestSymp, bestWeather);
+        
+    }
+}
+
 function initMap() {
     map = new google.maps.Map(document.getElementById("map"), {
       zoom: 16,
@@ -229,6 +305,8 @@ function initMap() {
         google.maps.event.trigger(map, 'resize');
         map.setCenter(center);
     });
+    
+    google.maps.event.addListener(map, 'mousemove', move);
 }
 
 google.maps.event.addDomListener(window, 'load', initMap);

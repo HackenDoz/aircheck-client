@@ -7,6 +7,11 @@
     .nomobile {
          display: none !important;
     }
+}
+@media screen and (max-width: 768px) {
+    .nomobiles {
+         display: none !important;
+    }
     
     .hidden-xs
 }
@@ -187,4 +192,31 @@ input[type=range]:focus::-ms-fill-lower {
 }
 input[type=range]:focus::-ms-fill-upper {
     background: #ccc;
+}
+
+.fuckrow {
+    vertical-align: middle;
+}
+.green-circle {
+    display: inline-block;
+    background-color: #4CAF50;
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    margin-right: 8px;
+}
+.fuckrow > p {
+    display: inline-block;
+    position: relative;
+    bottom: 12px;
+    padding-left: 2px;
+    margin-bottom: -12px;
+}
+.red-circle {
+    display: inline-block;
+    background-color: #F44336;
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    margin-right: 8px;
 }

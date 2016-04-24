@@ -5,6 +5,40 @@
         <script src="res/main.js"></script>
     </head>
     <body class="fullheight">
+      <div id="4431" style="
+    border-radius: 4px;
+    padding: 12px;
+    position: fixed;
+    right: 50px;
+    bottom: 164px;
+    z-index: 100;
+    background-color: white;
+    /* overflow-y: auto; */
+    overflow-x: auto;
+    width: 200px;
+    height: 108px;
+    box-shadow: 1px 1px 1px #CCC;
+"></div>
+      <div class="nomobiles" style="
+    border-radius: 4px;
+    padding: 12px;
+    position: fixed;
+    right: 50px;
+    bottom: 24px;
+    z-index: 100;
+    background-color: white;
+    width: 200px;
+    box-shadow: 1px 1px 1px #CCC;
+
+    ">
+        <div style="text-align: center; text-transform: capitalize;">Legend</div>
+        <div class="fuckrow">
+          <div class="green-circle"></div><p>Symptom</p>
+        </div>
+        <div class="fuckrow">
+          <div class="red-circle"></div><p>Extreme Weather</p>
+        </div>
+      </div>
         <?php $LANactive = false; $SUBactive=false; $MAPactive = true; require("res/header.php") ?>
         <div class="container-fluid fullheight">
             <div class="row fullheight">
