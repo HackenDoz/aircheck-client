@@ -34,15 +34,16 @@ function createTooltip(symp, weather) {
         box.innerHTML = "<h5>" + idToName[Number(symp.symptom_id)] + "</h5>" + "<p>Severity: " + symp.severity + "</p>";
     } else if (weather != undefined) {
         var box = document.getElementById('4431');
-        switch (weather.weather_id) {
+        console.log(weather.weather_id);
+        switch (Number(weather.weather_id)) {
             case 1:
-                box.innerHTML = "<p>Humidity: " + weather.value + "</p>";
+                box.innerHTML = "<h5>Humidity: " + weather.value + "</h5>";
                 break;
             case 2:
-                box.innerHTML = "<p>Temperature: " + weather.value + "</p>";
+                box.innerHTML = "<h5>Temperature: " + weather.value + "</h5>";
                 break;
             case 3:
-                box.innerHTML = "<p>Temperature: " + weather.value + "</p>";
+                box.innerHTML = "<h5>Temperature: " + weather.value + "</h5>";
                 break;
         }
     }
