@@ -68,7 +68,16 @@ function symptomClick(e) {
         elements[e].className = "";
         elements[e].blur();
         
-        fuckSymptoms([]);
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", "//api.aircheck-ng.tk/mapping?symptom");
+        xhttp.onreadystatechange = function() {
+            if (xhttp.readyState === XMLHttpRequest.DONE && xhttp.status === 200) {
+                fuckSymptoms(JSON.parse(xhttp.responseText)["heatmap"]);
+                redraw();
+                console.log("here");
+            }
+        };
+        xhttp.send();
     } else {
         elements[e].className = "active";
         

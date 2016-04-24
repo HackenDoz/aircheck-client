@@ -10,7 +10,7 @@ Overlay.prototype.onAdd = function() {
     
     this.getPanes().overlayLayer.appendChild(overlayCanvas);
     
-    scaling = 32;
+    scaling = 16;
     
     context = overlayCanvas.getContext("2d");
     
@@ -45,6 +45,7 @@ function genCircles() {
 }
 
 function redraw() {
+    console.log(map.zoom);
     var overlayProjection = overlay.getProjection();
     var bounds = map.getBounds();
     var sw = overlayProjection.fromLatLngToDivPixel(bounds.getSouthWest());
@@ -131,7 +132,7 @@ function redraw() {
                     
                     var d = R * c;
                     
-                    countS[y * iwidth + x] += 500000000 * Math.pow(1 / 2, map.zoom + 2) / d;
+                    countS[y * iwidth + x] += (map.zoom < 4 ? (map.zoom < 3 ? 500000000 : 100000000) : 500000000) * Math.pow(1 / 2, map.zoom + 2) / d;
                 }
                 
                 for (var k in visibleWeather) {
