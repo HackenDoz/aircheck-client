@@ -44,7 +44,6 @@ function genCircles() {
    }
 }
 
-
 function redraw() {
     var overlayProjection = overlay.getProjection();
     var bounds = map.getBounds();
@@ -71,6 +70,7 @@ function redraw() {
     var data = imageData.data;
     
     var count = new Float64Array(width * height);
+    var visibleWeather = [];
     
     if(symptoms != undefined) {
         
@@ -84,7 +84,9 @@ function redraw() {
         }
         for (var k in weatherData) {
             var weather = weatherData[k];
-            weather.vis = bounds.contains(new google.maps.LatLng(weather.latitude, weather.longitude));
+            if (bounds.contains(new google.maps.LatLng(weather.latitude, weather.longitude))) {
+                visibleWeather.push(weather);
+            }
         }
         
         for(var x = 0; x < iwidth; ++x) {

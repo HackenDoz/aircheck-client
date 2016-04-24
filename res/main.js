@@ -122,5 +122,5 @@ function populateWeather() {
     var xhttp = new XMLHttpRequest();
     xhttp.open("GET", "//api.aircheck-ng.tk/weather/mapping", false);
     xhttp.send();
-    fuckWeather(JSON.parse(xhttp.responseText));
+    fuckWeather(JSON.parse(xhttp.responseText)["heatmap"]);
 }
