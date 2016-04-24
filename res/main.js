@@ -1,31 +1,45 @@
 function removeMap(){
-    document.getElementById("map").className = "hidden-xs";
+    document.getElementById("map").className = "col-sm-9 fullheight hidden-xs heightzero-xs";
     document.getElementById("mapsymptoms").className = "nav nav-sidebar";
 }
 
 function openMap(){
-    document.getElementById("map").className = "";
-    document.getElementById("mapsymptoms").className = "nav nav-sidebar hidden-xs";
+    if(window.innerWidth <= 767){
+        document.getElementById("map").className = "";
+        document.getElementById("mapsymptoms").className = "nav nav-sidebar hidden-xs";
+        
+        history.pushState({}, "", document.location);
+        
+        map.refresh();
+        var center = map.getCenter();
+        google.maps.event.trigger(map, 'resize');
+        map.setCenter(center);
+    }
 }
 
 $(document).ready(function(){
     populateSymptoms();
     populateMap();
     window.onpopstate = removeMap;
+    
+    removeMap();
 });
 
 function click(e) {
-    if(window.innerWidth <= 767){
-        openMap();
-        google.maps.event.trigger(map, "resize");
-        history.pushState({}, "", document.location);
+    var elements = document.getElementById("mapsymptoms").childNodes;
+
+    for (var i = 0; i < elements.length; i++) {
+        if(i == e){
+            continue;
+        }
+        elements[i].className = "";
     }
-    var element = document.getElementById("mapsymptoms").childNodes[e];
-    if(element.className.indexOf("active") > -1){
-        element.className = "";
-        element.blur();
+    
+    if(elements[e].className.indexOf("active") > -1){
+        elements[e].className = "";
+        elements[e].blur();
     }else{
-        element.className = "active";
+        elements[e].className = "active";
     }
 }
 
@@ -54,6 +68,13 @@ function populateSymptoms() {
                     w.appendChild(li);
                 })(++i);
             });
+            var li = document.createElement("li");
+            var a = document.createElement("button");
+            a.className = "btn btn-primary btn-fullwidth visible-xs";
+            a.appendChild(document.createTextNode("Show map"));
+            li.appendChild(a);
+            li.onclick = openMap;
+            w.appendChild(li);
         }
     }
     xhttp.open("GET", "//api.aircheck-ng.tk/symptoms", true);
@@ -62,14 +83,16 @@ function populateSymptoms() {
 
 function populateMap() {
     var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (xhttp.readyState == 4 && xhttp.status == 200) {
-            var data = JSON.parse(xhttp.responseText)["heatmap"];
-            showMap(data);
-        }
-    };
-    xhttp.open("GET", "//api.aircheck-ng.tk/mapping", true);
+    //xhttp.onreadystatechange = function() {
+    //    if (xhttp.readyState == 4 && xhttp.status == 200) {
+    //        var data = JSON.parse(xhttp.responseText)["heatmap"];
+    //        showMap(data);
+    //    }
+    //};
+    //xhttp.open("GET", "//api.aircheck-ng.tk/mapping", true);
+    xhttp.open("GET", "//api.aircheck-ng.tk/mapping", false);
     xhttp.send();
+    showMap(JSON.parse(xhttp.responseText)["heatmap"]);
 }
 
 function showMap(symp) {

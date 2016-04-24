@@ -9,6 +9,13 @@
     }
 }
 
+
+@media (max-width: 767px) {
+    .heightzero-xs {
+        height: 0px !importants;
+    }
+}
+
 .nomobile {
     display: block;
 }
@@ -47,6 +54,15 @@ p {
     height: 100%;
 }
 
+.btn {
+    margin-top: 15px;
+}
+
+.btn-fullwidth {
+    display: block;
+    width: 100%;
+}
+
 .nav-sidebar {
     display: block;
     padding: 0px;
@@ -77,8 +93,8 @@ td {
 }
 
 #mapsymptoms .active > a{
-    color: #555;
-    background-color: #e7e7e7;
+    color: #FFF;
+    background-color: #4CAF50;
 }
 #mapsymptoms > a:link,
 #mapsymptoms > a:hover,

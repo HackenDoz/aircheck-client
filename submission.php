@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <?php $title = "Data Submission | Aircheck-NG"; require 'res/head.php' ?>
+        <?php $title = "Data Submission | AirCheck-NG"; require 'res/head.php' ?>
         <script src="res/submission.js"></script>
     </head>
     <body>

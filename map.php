@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="fullheight">
     <head>
-        <?php $title = "Aircheck-NG - Home"; require("res/head.php"); ?>
+        <?php $title = "Map | AirCheck-NG"; require("res/head.php"); ?>
         <script src="res/main.js"></script>
     </head>
     <body class="fullheight">
@@ -12,7 +12,7 @@
                     <ul class="nav nav-sidebar" id="mapsymptoms">
                     </ul>
                 </div>
-                <div id="map" class="col-sm-9 fullheight hidden-xs">
+                <div id="map" class="col-sm-9 fullheight hidden-xs heightzero-xs">
                 </div>
             </div>
         </div>
